@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*::after, *::before {
+  box-sizing: border-box;
+}
+ol, ul {
+  list-style: none;
+}
+body{
+  overflow: hidden;
+}
+body > .page{
+  display: flex;
+  flex-wrap: wrap;
+}
+body > .page > section{
+  border: 1px solid red;
+  width: 50vw;
+  height: 50vh;
+}
+/*#demo::-webkit-scrollbar { display: none; }*/
+#app1{
+
+}
+#app1 .output{}
+#app1 .actions{}
+#app2{
+  border: 1px solid blue;
+}
+#app2 .tab-bar{
+  display: flex;
+}
+#app2 .tab-bar > li{
+  border: 1px solid grey;
+  width: 50%;
+}
+#app2 .tab-bar > li.selected{
+  background: #e3c381;
+}
+#app2 .tab-content{
+
+}
+#app2 .tab-content > li{
+  display: none;
+}
+#app2 .tab-content > li.active{
+  display: block;
+}
+#app3{
+  border: 1px solid blue;
+}
+
+app4{
+  border: 1px solid red;
+}
+
+/*# sourceMappingURL=/main.1f19ae8e.css.map */
