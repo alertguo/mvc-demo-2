@@ -1,3 +1,25 @@
-app4{
+#app4{
+  padding-left: 5vw;
+  padding-top: 5vh;
+}
+@keyframes change {
+  0%{
+    background: red;
+  }
+  50%{
+    background: yellow;
+  }
+  100%{
+    background: green;
+  }
+}
+#app4 .circle{
+  width: 30vw;
+  height: 30vh;
+  border-radius: 50%;
   border: 1px solid red;
+  margin-bottom: 10px;
+}
+#app4 .circle.active {
+  animation: change 5s infinite alternate linear;
 }

@@ -11208,6 +11208,8 @@ return jQuery;
 },{"process":"gbFk"}],"US5u":[function(require,module,exports) {
 "use strict";
 
+require("./app1.css");
+
 var _jquery = _interopRequireDefault(require("jquery"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -11246,8 +11248,10 @@ $button4.on("click", function () {
   localStorage.setItem('n', n);
   $number.text(n);
 });
-},{"jquery":"juYr"}],"vZ5o":[function(require,module,exports) {
+},{"./app1.css":"AQoi","jquery":"juYr"}],"vZ5o":[function(require,module,exports) {
 "use strict";
+
+require("./app2.css");
 
 var _jquery = _interopRequireDefault(require("jquery"));
 
@@ -11268,23 +11272,48 @@ $tabBar.on('click', 'li', function (e) {
   // .siblings().css({display:'none'}) // 它的兄弟变成none
 });
 $tabBar.children().eq(0).trigger('click'); // 默认出发第一个事件
-},{"jquery":"juYr"}],"epB2":[function(require,module,exports) {
+},{"./app2.css":"AQoi","jquery":"juYr"}],"y8lT":[function(require,module,exports) {
+"use strict";
+
+var _jquery = _interopRequireDefault(require("jquery"));
+
+require("./app3.css");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var $square = (0, _jquery.default)('#app3 .square');
+$square.on('click', function () {
+  console.log('active');
+  $square.toggleClass('active'); // toggleClass 有就删掉，没有就加上
+});
+},{"jquery":"juYr","./app3.css":"AQoi"}],"eWpN":[function(require,module,exports) {
+"use strict";
+
+var _jquery = _interopRequireDefault(require("jquery"));
+
+require("./app4.css");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var $circle = (0, _jquery.default)('#app4 .circle');
+$circle.on('mouseenter', function () {
+  $circle.addClass('active');
+}).on('mouseleave', function () {
+  $circle.removeClass('active');
+});
+},{"jquery":"juYr","./app4.css":"AQoi"}],"epB2":[function(require,module,exports) {
 "use strict";
 
 require("./reset.css");
 
 require("./global.css");
 
-require("./app1.css");
-
 require("./app1.js");
-
-require("./app2.css");
 
 require("./app2.js");
 
-require("./app3.css");
+require("./app3.js");
 
-require("./app4.css");
-},{"./reset.css":"AQoi","./global.css":"AQoi","./app1.css":"AQoi","./app1.js":"US5u","./app2.css":"AQoi","./app2.js":"vZ5o","./app3.css":"AQoi","./app4.css":"AQoi"}]},{},["epB2"], null)
-//# sourceMappingURL=main.6ae4327a.js.map
+require("./app4.js");
+},{"./reset.css":"AQoi","./global.css":"AQoi","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
+//# sourceMappingURL=main.d3f02f49.js.map

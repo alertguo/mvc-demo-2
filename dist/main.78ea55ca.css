@@ -28,7 +28,6 @@ body > .page > section{
 #app1 .output{}
 #app1 .actions{}
 #app2{
-  border: 1px solid blue;
 }
 #app2 .tab-bar{
   display: flex;
@@ -50,11 +49,44 @@ body > .page > section{
   display: block;
 }
 #app3{
+  padding-top: 10vh;
+  padding-left: 10vw;
+}
+#app3 .square{
   border: 1px solid blue;
+  width: 10vw;
+  height: 10vh;
+  margin-bottom: 10px;
+  transition: transform 1s;
+}
+#app3 .square.active{
+  transform: translateX(15vw);
 }
 
-app4{
+#app4{
+  padding-left: 5vw;
+  padding-top: 5vh;
+}
+@keyframes change {
+  0%{
+    background: red;
+  }
+  50%{
+    background: yellow;
+  }
+  100%{
+    background: green;
+  }
+}
+#app4 .circle{
+  width: 30vw;
+  height: 30vh;
+  border-radius: 50%;
   border: 1px solid red;
+  margin-bottom: 10px;
+}
+#app4 .circle.active {
+  animation: change 5s infinite alternate linear;
 }
 
-/*# sourceMappingURL=main.2cd577ab.css.map */
+/*# sourceMappingURL=main.78ea55ca.css.map */
