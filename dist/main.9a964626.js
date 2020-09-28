@@ -11208,46 +11208,88 @@ return jQuery;
 },{"process":"gbFk"}],"US5u":[function(require,module,exports) {
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
 require("./app1.css");
 
 var _jquery = _interopRequireDefault(require("jquery"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var $button1 = (0, _jquery.default)('#add1');
-var $button2 = (0, _jquery.default)('#minus1');
-var $button3 = (0, _jquery.default)('#multiply2');
-var $button4 = (0, _jquery.default)('#divide2');
-var $number = (0, _jquery.default)('#number');
-var n = localStorage.getItem('n'); //初始化 n
+// 数据相关放 m
+var m = {
+  data: {
+    // 初始化数据
+    n: parseInt(localStorage.getItem('n'))
+  }
+}; // 视图相关放 v
 
-$number.text(n || 100); // 初始化 number
+var v = {
+  el: null,
+  // 渲染 html
+  html: "\n  <div>\n    <div class=\"output\">\n      <span id=\"number\">{{n}}</span>\n    </div>\n    <div class=\"actions\">\n      <button id=\"add1\">+1</button>\n      <button id=\"minus1\">-1</button>\n      <button id=\"multiply2\">\xD72</button>\n      <button id=\"divide2\">\xF72</button>\n    </div>\n  </div>\n",
+  init: function init(container) {
+    v.container = (0, _jquery.default)(container); // v.container变成用jquery封装的对象
 
-$button1.on("click", function () {
-  var n = parseInt($number.text());
-  n += 1;
-  localStorage.setItem('n', 'n'); // 存储数据，页面刷新之前的数据也还在
+    v.render();
+  },
+  // 新增和重新渲染 button
+  render: function render() {
+    localStorage.setItem('n', m.data.n); // el为空新增，不为空就用新的替换旧的
 
-  $number.text(n);
-});
-$button2.on("click", function () {
-  var n = parseInt($number.text());
-  n -= 1;
-  localStorage.setItem('n', n);
-  $number.text(n);
-});
-$button3.on("click", function () {
-  var n = parseInt($number.text());
-  n *= 2;
-  localStorage.setItem('n', n);
-  $number.text(n);
-});
-$button4.on("click", function () {
-  var n = parseInt($number.text());
-  n /= 2;
-  localStorage.setItem('n', n);
-  $number.text(n);
-});
+    if (v.el === null) {
+      v.el = (0, _jquery.default)(v.html.replace('{{n}}', m.data.n)).appendTo(v.container);
+    } else {
+      var newEl = (0, _jquery.default)(v.html.replace('{{n}}', m.data.n));
+      v.el.replaceWith(newEl);
+      v.el = newEl;
+    }
+  }
+}; // 其他都放c
+
+var c = {
+  // 初始化并且绑定事件
+  init: function init(container) {
+    v.init(container);
+    c.ui = {
+      // 寻找重要的元素
+      button1: (0, _jquery.default)('#add1'),
+      button2: (0, _jquery.default)('#minus1'),
+      button3: (0, _jquery.default)('#multiply2'),
+      button4: (0, _jquery.default)('#divide2'),
+      number: (0, _jquery.default)('#number')
+    };
+    c.bindEvents();
+  },
+  bindEvents: function bindEvents() {
+    // 绑定鼠标事件
+    v.container.on('click', '#add1', function () {
+      // let n = m.data.n
+      // n += 1
+      // m.data.n = n
+      m.data.n += 1;
+      v.render();
+    });
+    v.container.on('click', '#minus1', function () {
+      m.data.n -= 1;
+      v.render();
+    });
+    v.container.on('click', '#multiply2', function () {
+      m.data.n *= 2;
+      v.render();
+    });
+    v.container.on('click', '#divide2', function () {
+      m.data.n /= 2;
+      v.render();
+    });
+  }
+};
+var _default = c; // 导出 c
+
+exports.default = _default;
 },{"./app1.css":"AQoi","jquery":"juYr"}],"vZ5o":[function(require,module,exports) {
 "use strict";
 
@@ -11259,6 +11301,8 @@ var _localStorage$getItem;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var html = "\n  <section id=\"app2\">\n    <ol class=\"tab-bar\">\n      <li>1</li>\n      <li>2</li>\n    </ol>\n    <ol class=\"tab-content\">\n      <li>\u4E0D\u5FD8\u521D\u5FC3</li>\n      <li>\u65B9\u5F97\u59CB\u7EC8</li>\n    </ol>\n  </section>\n";
+var $element = (0, _jquery.default)(html).appendTo('body>.page');
 var $tabBar = (0, _jquery.default)('#app2 .tab-bar');
 var $tabContent = (0, _jquery.default)('#app2 .tab-content');
 var localKey = 'app2.index';
@@ -11284,6 +11328,8 @@ require("./app3.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var html = "\n  <section id=\"app3\">\n    <div class=\"square\"></div>\n    <div>\u70B9\u4E00\u70B9\u8FD9\u4E2A\u6B63\u65B9\u5F62</div>\n  </section>\n";
+var $element = (0, _jquery.default)(html).appendTo('body>.page');
 var $square = (0, _jquery.default)('#app3 .square');
 var localKey = 'app3.active';
 var active = localStorage.getItem(localKey) === 'yes';
@@ -11313,6 +11359,8 @@ require("./app4.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var html = "\n  <section id=\"app4\">\n    <div class=\"circle\"></div>\n    <div>\u9F20\u6807\u653E\u5230\u5706\u91CC\u770B\u770B\u4F1A\u53D1\u751F\u4EC0\u4E48</div>\n  </section>\n";
+var $element = (0, _jquery.default)(html).appendTo('body>.page');
 var $circle = (0, _jquery.default)('#app4 .circle');
 $circle.on('mouseenter', function () {
   $circle.addClass('active');
@@ -11326,12 +11374,17 @@ require("./reset.css");
 
 require("./global.css");
 
-require("./app1.js");
+var _app = _interopRequireDefault(require("./app1.js"));
 
 require("./app2.js");
 
 require("./app3.js");
 
 require("./app4.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// 这里的x就是导出来的c
+_app.default.init('#app1'); // 页面中的 #app1 传给x这个模块
 },{"./reset.css":"AQoi","./global.css":"AQoi","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.9b665bb4.js.map
+//# sourceMappingURL=main.9a964626.js.map
