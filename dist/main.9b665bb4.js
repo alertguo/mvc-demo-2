@@ -11226,7 +11226,7 @@ $number.text(n || 100); // 初始化 number
 $button1.on("click", function () {
   var n = parseInt($number.text());
   n += 1;
-  localStorage.setItem('n', n); // 存储数据，页面刷新之前的数据也还在
+  localStorage.setItem('n', 'n'); // 存储数据，页面刷新之前的数据也还在
 
   $number.text(n);
 });
@@ -11255,23 +11255,26 @@ require("./app2.css");
 
 var _jquery = _interopRequireDefault(require("jquery"));
 
+var _localStorage$getItem;
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var $tabBar = (0, _jquery.default)('#app2 .tab-bar');
 var $tabContent = (0, _jquery.default)('#app2 .tab-content');
+var localKey = 'app2.index';
+var index = (_localStorage$getItem = localStorage.getItem(localKey)) !== null && _localStorage$getItem !== void 0 ? _localStorage$getItem : 0;
 $tabBar.on('click', 'li', function (e) {
   var $li = (0, _jquery.default)(e.currentTarget); // 获取 li
   // 使用currentTarget，即使li里面有span元素，监听的还是li
 
   $li.addClass('selected').siblings().removeClass('selected');
   var index = $li.index();
+  localStorage.setItem(localKey, index);
   $tabContent.children().eq(index).addClass('active') //第index个变成block
   .siblings().removeClass('active'); // 它的兄弟变成none
-  // 永远不要在js里用 css 的 api ,比如下面的.css()
-  // .eq(index).css({display:'block'}) //第index个变成block
-  // .siblings().css({display:'none'}) // 它的兄弟变成none
+  // 永远不要在js里用 css 的 api
 });
-$tabBar.children().eq(0).trigger('click'); // 默认出发第一个事件
+$tabBar.children().eq(index).trigger('click'); // 默认出发第一个事件
 },{"./app2.css":"AQoi","jquery":"juYr"}],"y8lT":[function(require,module,exports) {
 "use strict";
 
@@ -11282,9 +11285,24 @@ require("./app3.css");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var $square = (0, _jquery.default)('#app3 .square');
+var localKey = 'app3.active';
+var active = localStorage.getItem(localKey) === 'yes';
+$square.toggleClass('active', active); // 第二个参数就表示ture就添加，否则不加
+// 上面一句等价于下面几句
+// if(active){
+//   $square.addClass('active')
+// }else{
+//   $square.removeClass('active')
+// }
+
 $square.on('click', function () {
-  console.log('active');
-  $square.toggleClass('active'); // toggleClass 有就删掉，没有就加上
+  if ($square.hasClass('active')) {
+    $square.removeClass('active');
+    localStorage.setItem('localKey', 'no');
+  } else {
+    $square.addClass('active');
+    localStorage.setItem('localKey', 'yes');
+  }
 });
 },{"jquery":"juYr","./app3.css":"AQoi"}],"eWpN":[function(require,module,exports) {
 "use strict";
@@ -11316,4 +11334,4 @@ require("./app3.js");
 
 require("./app4.js");
 },{"./reset.css":"AQoi","./global.css":"AQoi","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.e6936e5d.js.map
+//# sourceMappingURL=main.9b665bb4.js.map

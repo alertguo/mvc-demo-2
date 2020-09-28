@@ -3,6 +3,8 @@ import $ from 'jquery'
 
 const $tabBar = $('#app2 .tab-bar')
 const $tabContent = $('#app2 .tab-content')
+const localKey = 'app2.index'
+const index = localStorage.getItem(localKey) ?? 0
 
 $tabBar.on('click','li',(e)=>{
   const $li = $(e.currentTarget) // 获取 li
@@ -12,12 +14,11 @@ $tabBar.on('click','li',(e)=>{
     .siblings()
     .removeClass('selected')
   const index = $li.index()
+  localStorage.setItem(localKey,index)
   $tabContent.children()
     .eq(index).addClass('active') //第index个变成block
     .siblings().removeClass('active') // 它的兄弟变成none
-    // 永远不要在js里用 css 的 api ,比如下面的.css()
-    // .eq(index).css({display:'block'}) //第index个变成block
-    // .siblings().css({display:'none'}) // 它的兄弟变成none
+    // 永远不要在js里用 css 的 api
 })
 
-$tabBar.children().eq(0).trigger('click') // 默认出发第一个事件
+$tabBar.children().eq(index).trigger('click') // 默认出发第一个事件

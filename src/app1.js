@@ -13,7 +13,7 @@ $number.text(n || 100) // 初始化 number
 $button1.on("click",() => {
   let n = parseInt($number.text())
   n += 1
-  localStorage.setItem('n', n) // 存储数据，页面刷新之前的数据也还在
+  localStorage.setItem('n', 'n') // 存储数据，页面刷新之前的数据也还在
   $number.text(n)
 })
 $button2.on("click",() => {
