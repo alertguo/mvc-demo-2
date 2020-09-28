@@ -1,6 +1,6 @@
 #app4{
-  padding-left: 5vw;
-  padding-top: 5vh;
+  padding-left: 15px;
+  padding-top: 15px;
 }
 @keyframes change {
   0%{
@@ -14,10 +14,10 @@
   }
 }
 #app4 .circle{
-  width: 30vw;
-  height: 30vh;
+  max-width: 30vh;
+  min-height: 30vh;
   border-radius: 50%;
-  border: 1px solid red;
+  border: 1px solid grey;
   margin-bottom: 10px;
 }
 #app4 .circle.active {

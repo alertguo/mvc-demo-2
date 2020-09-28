@@ -22,13 +22,8 @@ body > .page > section{
   height: 50vh;
 }
 /*#demo::-webkit-scrollbar { display: none; }*/
-#app1{
-
-}
 #app1 .output{}
 #app1 .actions{}
-#app2{
-}
 #app2 .tab-bar{
   display: flex;
 }
@@ -49,12 +44,12 @@ body > .page > section{
   display: block;
 }
 #app3{
-  padding-top: 10vh;
-  padding-left: 10vw;
+  padding-top: 30px;
+  padding-left: 30px;
 }
 #app3 .square{
   border: 1px solid blue;
-  width: 10vw;
+  max-width: 10vh;
   height: 10vh;
   margin-bottom: 10px;
   transition: transform 1s;
@@ -64,8 +59,8 @@ body > .page > section{
 }
 
 #app4{
-  padding-left: 5vw;
-  padding-top: 5vh;
+  padding-left: 15px;
+  padding-top: 15px;
 }
 @keyframes change {
   0%{
@@ -79,14 +74,14 @@ body > .page > section{
   }
 }
 #app4 .circle{
-  width: 30vw;
-  height: 30vh;
+  max-width: 30vh;
+  min-height: 30vh;
   border-radius: 50%;
-  border: 1px solid red;
+  border: 1px solid grey;
   margin-bottom: 10px;
 }
 #app4 .circle.active {
   animation: change 5s infinite alternate linear;
 }
 
-/*# sourceMappingURL=main.78ea55ca.css.map */
+/*# sourceMappingURL=main.42ce3612.css.map */
