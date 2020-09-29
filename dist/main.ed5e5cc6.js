@@ -11223,7 +11223,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var m = {
   data: {
     // 初始化数据
-    n: parseInt(localStorage.getItem('n'))
+    n: parseInt(localStorage.getItem('n')) || 100
   }
 }; // 视图相关放 v
 
@@ -11231,8 +11231,9 @@ var v = {
   el: null,
   // 渲染 html
   html: "\n  <div>\n    <div class=\"output\">\n      <span id=\"number\">{{n}}</span>\n    </div>\n    <div class=\"actions\">\n      <button id=\"add1\">+1</button>\n      <button id=\"minus1\">-1</button>\n      <button id=\"multiply2\">\xD72</button>\n      <button id=\"divide2\">\xF72</button>\n    </div>\n  </div>\n",
+  // 初始化
   init: function init(container) {
-    v.container = (0, _jquery.default)(container); // v.container变成用jquery封装的对象
+    v.el = (0, _jquery.default)(container); // v.el变成用jquery封装的对象
 
     v.render();
   },
@@ -11240,13 +11241,8 @@ var v = {
   render: function render() {
     localStorage.setItem('n', m.data.n); // el为空新增，不为空就用新的替换旧的
 
-    if (v.el === null) {
-      v.el = (0, _jquery.default)(v.html.replace('{{n}}', m.data.n)).appendTo(v.container);
-    } else {
-      var newEl = (0, _jquery.default)(v.html.replace('{{n}}', m.data.n));
-      v.el.replaceWith(newEl);
-      v.el = newEl;
-    }
+    if (v.el.children.length !== 0) v.el.empty();
+    (0, _jquery.default)(v.html.replace('{{n}}', m.data.n)).appendTo(v.el);
   }
 }; // 其他都放c
 
@@ -11254,34 +11250,26 @@ var c = {
   // 初始化并且绑定事件
   init: function init(container) {
     v.init(container);
-    c.ui = {
-      // 寻找重要的元素
-      button1: (0, _jquery.default)('#add1'),
-      button2: (0, _jquery.default)('#minus1'),
-      button3: (0, _jquery.default)('#multiply2'),
-      button4: (0, _jquery.default)('#divide2'),
-      number: (0, _jquery.default)('#number')
-    };
     c.bindEvents();
   },
   bindEvents: function bindEvents() {
     // 绑定鼠标事件
-    v.container.on('click', '#add1', function () {
+    v.el.on('click', '#add1', function () {
       // let n = m.data.n
       // n += 1
       // m.data.n = n
       m.data.n += 1;
       v.render();
     });
-    v.container.on('click', '#minus1', function () {
+    v.el.on('click', '#minus1', function () {
       m.data.n -= 1;
       v.render();
     });
-    v.container.on('click', '#multiply2', function () {
+    v.el.on('click', '#multiply2', function () {
       m.data.n *= 2;
       v.render();
     });
-    v.container.on('click', '#divide2', function () {
+    v.el.on('click', '#divide2', function () {
       m.data.n /= 2;
       v.render();
     });
@@ -11387,4 +11375,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // 这里的x就是导出来的c
 _app.default.init('#app1'); // 页面中的 #app1 传给x这个模块
 },{"./reset.css":"AQoi","./global.css":"AQoi","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.9a964626.js.map
+//# sourceMappingURL=main.ed5e5cc6.js.map

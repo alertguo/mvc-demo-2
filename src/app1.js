@@ -5,7 +5,7 @@ import $ from 'jquery'
 const m = {
   data: {
     // 初始化数据
-    n: parseInt(localStorage.getItem('n'))
+    n: parseInt(localStorage.getItem('n')) || 100
   }
 }
 // 视图相关放 v
@@ -25,21 +25,17 @@ const v = {
     </div>
   </div>
 `,
+  // 初始化
   init(container){
-    v.container = $(container) // v.container变成用jquery封装的对象
+    v.el = $(container) // v.el变成用jquery封装的对象
     v.render()
   },
   // 新增和重新渲染 button
   render(){
     localStorage.setItem('n',m.data.n)
     // el为空新增，不为空就用新的替换旧的
-    if(v.el === null){
-      v.el = $(v.html.replace('{{n}}',m.data.n)).appendTo(v.container)
-    }else{
-      const newEl = $(v.html.replace('{{n}}',m.data.n))
-      v.el.replaceWith(newEl)
-      v.el = newEl
-    }
+    if(v.el.children.length !== 0) v.el.empty()
+    $(v.html.replace('{{n}}',m.data.n)).appendTo(v.el)
   }
 }
 // 其他都放c
@@ -47,34 +43,26 @@ const c = {
   // 初始化并且绑定事件
   init(container){
     v.init(container)
-    c.ui = {
-      // 寻找重要的元素
-      button1 : $('#add1'),
-      button2 : $('#minus1'),
-      button3 : $('#multiply2'),
-      button4 : $('#divide2'),
-      number : $('#number')
-    }
     c.bindEvents()
   },
   bindEvents(){
     // 绑定鼠标事件
-    v.container.on('click','#add1',()=>{
+    v.el.on('click','#add1',()=>{
       // let n = m.data.n
       // n += 1
       // m.data.n = n
       m.data.n += 1
       v.render()
     })
-    v.container.on('click','#minus1',()=>{
+    v.el.on('click','#minus1',()=>{
       m.data.n -= 1
       v.render()
     })
-    v.container.on('click','#multiply2',()=>{
+    v.el.on('click','#multiply2',()=>{
       m.data.n *= 2
       v.render()
     })
-    v.container.on('click','#divide2',()=>{
+    v.el.on('click','#divide2',()=>{
       m.data.n /= 2
       v.render()
     })
