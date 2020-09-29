@@ -14,6 +14,7 @@ const m = {
   update(data) {
     Object.assign(m.data, data) // data里的数据赋值到 m.data.n
     eventBus.trigger('m:updated')
+    localStorage.setItem('n', m.data.n)
   }
 }
 // 视图相关放 v
@@ -39,7 +40,6 @@ const v = {
   },
   // 新增和重新渲染 button
   render(n) {
-    localStorage.setItem('n', n)
     // el为空新增，不为空就用新的替换旧的
     if (v.el.children.length !== 0) v.el.empty()
     $(v.html.replace('{{n}}', n)).appendTo(v.el)

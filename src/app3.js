@@ -22,9 +22,9 @@ $square.toggleClass('active',active) // 第二个参数就表示ture就添加，
 $square.on('click',()=>{
   if($square.hasClass('active')){
     $square.removeClass('active')
-    localStorage.setItem('localKey','no')
+    localStorage.setItem(localKey,'no')
   }else{
     $square.addClass('active')
-    localStorage.setItem('localKey','yes')
+    localStorage.setItem(localKey,'yes')
   }
 })

@@ -11233,6 +11233,7 @@ var m = {
     Object.assign(m.data, data); // data里的数据赋值到 m.data.n
 
     eventBus.trigger('m:updated');
+    localStorage.setItem('n', m.data.n);
   }
 }; // 视图相关放 v
 
@@ -11246,8 +11247,7 @@ var v = {
   },
   // 新增和重新渲染 button
   render: function render(n) {
-    localStorage.setItem('n', n); // el为空新增，不为空就用新的替换旧的
-
+    // el为空新增，不为空就用新的替换旧的
     if (v.el.children.length !== 0) v.el.empty();
     (0, _jquery.default)(v.html.replace('{{n}}', n)).appendTo(v.el);
   }
@@ -11360,10 +11360,10 @@ $square.toggleClass('active', active); // 第二个参数就表示ture就添加�
 $square.on('click', function () {
   if ($square.hasClass('active')) {
     $square.removeClass('active');
-    localStorage.setItem('localKey', 'no');
+    localStorage.setItem(localKey, 'no');
   } else {
     $square.addClass('active');
-    localStorage.setItem('localKey', 'yes');
+    localStorage.setItem(localKey, 'yes');
   }
 });
 },{"jquery":"juYr","./app3.css":"AQoi"}],"eWpN":[function(require,module,exports) {
@@ -11403,4 +11403,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // 这里的x就是导出来的c
 _app.default.init('#app1'); // 页面中的 #app1 传给x这个模块
 },{"./reset.css":"AQoi","./global.css":"AQoi","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.d05fffee.js.map
+//# sourceMappingURL=main.d12df07c.js.map
