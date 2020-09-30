@@ -11309,32 +11309,89 @@ exports.default = _default;
 },{"./app1.css":"AQoi","jquery":"juYr"}],"vZ5o":[function(require,module,exports) {
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
 require("./app2.css");
 
 var _jquery = _interopRequireDefault(require("jquery"));
 
-var _localStorage$getItem;
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var html = "\n  <section id=\"app2\">\n    <ol class=\"tab-bar\">\n      <li>1</li>\n      <li>2</li>\n    </ol>\n    <ol class=\"tab-content\">\n      <li>\u4E0D\u5FD8\u521D\u5FC3</li>\n      <li>\u65B9\u5F97\u59CB\u7EC8</li>\n    </ol>\n  </section>\n";
-var $element = (0, _jquery.default)(html).appendTo('body>.page');
-var $tabBar = (0, _jquery.default)('#app2 .tab-bar');
-var $tabContent = (0, _jquery.default)('#app2 .tab-content');
-var localKey = 'app2.index';
-var index = (_localStorage$getItem = localStorage.getItem(localKey)) !== null && _localStorage$getItem !== void 0 ? _localStorage$getItem : 0;
-$tabBar.on('click', 'li', function (e) {
-  var $li = (0, _jquery.default)(e.currentTarget); // 获取 li
-  // 使用currentTarget，即使li里面有span元素，监听的还是li
+var eventBus = (0, _jquery.default)(window);
+var localKey = 'app2.index'; // 数据相关放 m
 
-  $li.addClass('selected').siblings().removeClass('selected');
-  var index = $li.index();
-  localStorage.setItem(localKey, index);
-  $tabContent.children().eq(index).addClass('active') //第index个变成block
-  .siblings().removeClass('active'); // 它的兄弟变成none
-  // 永远不要在js里用 css 的 api
-});
-$tabBar.children().eq(index).trigger('click'); // 默认出发第一个事件
+var m = {
+  data: {
+    index: parseInt(localStorage.getItem(localKey)) || 0
+  },
+  create: function create() {},
+  delete: function _delete() {},
+  update: function update(data) {
+    Object.assign(m.data, data); // data里的数据赋值到 m.data.n
+
+    eventBus.trigger('m:updated');
+    localStorage.setItem(localKey, m.data.index);
+  },
+  get: function get() {}
+}; // 视图相关放 v
+
+var v = {
+  el: null,
+  // 渲染 html
+  html: function html(index) {
+    return "\n    <div>\n      <ol class=\"tab-bar\">\n        <li class=\"".concat(index === 0 ? 'selected' : '', "\" data-index=\"0\">1</li>\n        <li class=\"").concat(index === 1 ? 'selected' : '', "\" data-index=\"1\">2</li>\n      </ol>\n      <ol class=\"tab-content\">\n        <li class=\"").concat(index === 0 ? 'active' : '', "\">\u4E0D\u5FD8\u521D\u5FC3</li>\n        <li class=\"").concat(index === 1 ? 'active' : '', "\">\u65B9\u5F97\u59CB\u7EC8</li>\n      </ol>\n    </div>\n  ");
+  },
+  // 初始化
+  init: function init(container) {
+    v.el = (0, _jquery.default)(container); // v.el变成用jquery封装的对象
+  },
+  // 新增和重新渲染 button
+  render: function render(index) {
+    // el为空新增，不为空就用新的替换旧的
+    if (v.el.children.length !== 0) v.el.empty();
+    (0, _jquery.default)(v.html(index)).appendTo(v.el);
+  }
+}; // 其他都放c
+
+var c = {
+  // 初始化并且绑定事件
+  init: function init(container) {
+    v.init(container);
+    v.render(m.data.index); // view = render(data);第一次渲染
+
+    c.autoBindEvents();
+    eventBus.on('m:updated', function () {
+      v.render(m.data.index);
+    });
+  },
+  events: {
+    'click .tab-bar li': 'x'
+  },
+  x: function x(e) {
+    var index = parseInt(e.currentTarget.dataset.index);
+    m.update({
+      index: index
+    });
+  },
+  autoBindEvents: function autoBindEvents() {
+    for (var key in c.events) {
+      var value = c[c.events[key]]; // c.events[key]只能取到add；外面再加一层得到四个方法
+
+      var spaceIndex = key.indexOf(' '); // 得到索引
+
+      var part1 = key.slice(0, spaceIndex);
+      var part2 = key.slice(spaceIndex + 1); // 分成两个字符串
+
+      v.el.on(part1, part2, value);
+    }
+  }
+};
+var _default = c; // 导出 c
+
+exports.default = _default;
 },{"./app2.css":"AQoi","jquery":"juYr"}],"y8lT":[function(require,module,exports) {
 "use strict";
 
@@ -11392,7 +11449,7 @@ require("./global.css");
 
 var _app = _interopRequireDefault(require("./app1.js"));
 
-require("./app2.js");
+var _app2 = _interopRequireDefault(require("./app2.js"));
 
 require("./app3.js");
 
@@ -11402,5 +11459,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // 这里的x就是导出来的c
 _app.default.init('#app1'); // 页面中的 #app1 传给x这个模块
+
+
+_app2.default.init('#app2');
 },{"./reset.css":"AQoi","./global.css":"AQoi","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.d12df07c.js.map
+//# sourceMappingURL=main.65fdee52.js.map
