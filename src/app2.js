@@ -13,7 +13,7 @@ const m = {
   update(data) {
     Object.assign(m.data, data) // data里的数据赋值到 m.data.n
     eventBus.trigger('m:updated')
-    localStorage.setItem(localKey, m.data.index)
+    localStorage.setItem(localKey, m.data.index.toString())
   },
   get() {}
 }

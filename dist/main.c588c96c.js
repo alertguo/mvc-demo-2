@@ -11224,7 +11224,7 @@ var eventBus = (0, _jquery.default)(window); // 数据相关放 m
 var m = {
   data: {
     // 初始化数据
-    n: parseInt(localStorage.getItem('n')) || 100
+    n: parseFloat(localStorage.getItem('n')) || 100
   },
   create: function create() {},
   delete: function _delete() {},
@@ -11233,7 +11233,7 @@ var m = {
     Object.assign(m.data, data); // data里的数据赋值到 m.data.n
 
     eventBus.trigger('m:updated');
-    localStorage.setItem('n', m.data.n);
+    localStorage.setItem('n', m.data.n.toString());
   }
 }; // 视图相关放 v
 
@@ -11333,7 +11333,7 @@ var m = {
     Object.assign(m.data, data); // data里的数据赋值到 m.data.n
 
     eventBus.trigger('m:updated');
-    localStorage.setItem(localKey, m.data.index);
+    localStorage.setItem(localKey, m.data.index.toString());
   },
   get: function get() {}
 }; // 视图相关放 v
@@ -11402,7 +11402,7 @@ require("./app3.css");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var html = "\n  <section id=\"app3\">\n    <div class=\"square\"></div>\n    <div>\u70B9\u4E00\u70B9\u8FD9\u4E2A\u6B63\u65B9\u5F62</div>\n  </section>\n";
-var $element = (0, _jquery.default)(html).appendTo('body>.page');
+(0, _jquery.default)(html).appendTo('body>.page');
 var $square = (0, _jquery.default)('#app3 .square');
 var localKey = 'app3.active';
 var active = localStorage.getItem(localKey) === 'yes';
@@ -11433,7 +11433,7 @@ require("./app4.css");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var html = "\n  <section id=\"app4\">\n    <div class=\"circle\"></div>\n    <div>\u9F20\u6807\u653E\u5230\u5706\u91CC\u770B\u770B\u4F1A\u53D1\u751F\u4EC0\u4E48</div>\n  </section>\n";
-var $element = (0, _jquery.default)(html).appendTo('body > .page');
+(0, _jquery.default)(html).appendTo('body > .page');
 var $circle = (0, _jquery.default)('#app4 .circle');
 $circle.on('mouseenter', function () {
   $circle.addClass('active');
@@ -11463,4 +11463,4 @@ _app.default.init('#app1'); // 页面中的 #app1 传给x这个模块
 
 _app2.default.init('#app2');
 },{"./reset.css":"AQoi","./global.css":"AQoi","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.65fdee52.js.map
+//# sourceMappingURL=main.c588c96c.js.map

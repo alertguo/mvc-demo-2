@@ -7,7 +7,7 @@ const html = `
     <div>点一点这个正方形</div>
   </section>
 `
-const $element = $(html).appendTo('body>.page')
+$(html).appendTo('body>.page')
 
 const $square = $('#app3 .square')
 const localKey = 'app3.active'

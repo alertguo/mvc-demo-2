@@ -6,7 +6,7 @@ const eventBus = $(window)
 const m = {
   data: {
     // 初始化数据
-    n: parseInt(localStorage.getItem('n')) || 100
+    n: parseFloat(localStorage.getItem('n')) || 100
   },
   create() {},
   delete() {},
@@ -14,7 +14,7 @@ const m = {
   update(data) {
     Object.assign(m.data, data) // data里的数据赋值到 m.data.n
     eventBus.trigger('m:updated')
-    localStorage.setItem('n', m.data.n)
+    localStorage.setItem('n', m.data.n.toString())
   }
 }
 // 视图相关放 v
